@@ -61,13 +61,23 @@ Notes on fastai - Practical Deep Learning for Coders 2022
 
 -  the [_universal approximation theorem_](https://en.wikipedia.org/wiki/Universal_approximation_theorem#History) states that neural networks (with at least one hidden layer) can theoretically represent any mathematical function.
 
+#### Jupyter Notebook-bsed Applications
+- Presentations: [RISE](https://rise.readthedocs.io/en/stable/)
+- Blogging: [fastpages](https://github.com/fastai/fastpages)
+- The notebooks used to create the [fastai library](https://github.com/fastai/fastai/tree/master/nbs)
+- [nbdev](https://nbdev.fast.ai/) - the system we built to create Python libraries using Jupyter and CI
+- Jupyter Notebook Extensions - allows Table of Contents, Navigating sections
+#### Beginner Help
+- [Help: Setup](https://forums.fast.ai/t/help-setup/95289)
+- [Help: Creating a dataset, and using Gradio / Spaces](https://forums.fast.ai/t/help-creating-a-dataset-and-using-gradio-spaces/96281)
+- [Help: Using Colab or Kaggle](https://forums.fast.ai/t/help-using-colab-or-kaggle/96280)
 
 [Lesson 2: Deployment](https://course.fast.ai/Lessons/lesson2.html)
 ------------------------------------------------------------------------
 
 - There are many accurate models that are of no use to anyone, and many inaccurate models that are highly useful. To ensure that your modeling work is useful in practice, you need to consider how your work will be used. In 2012 Jeremy, along with Margit Zwemer and Mike Loukides, introduced a method called the **Drivetrain Approach** for thinking about this issue.
 
-    - The Drivetrain Approach, illustrated in <>, was described in detail in ["Designing Great Data Products"](https://www.oreilly.com/radar/drivetrain-approach-data-products/). The basic idea is to 
+    - The **Drivetrain Approach**, illustrated in <>, was described in detail in ["Designing Great Data Products"](https://www.oreilly.com/radar/drivetrain-approach-data-products/). The basic idea is to 
         - Defined Objective: start with considering your clear objective, 
         - Levers: then think about what actions you can take (levers you can pull) to meet that objective and 
         - Data: what data you have (or can acquire) that can help to take that action/pull lever, and then 
@@ -97,7 +107,8 @@ Notes on fastai - Practical Deep Learning for Coders 2022
     failed
     ```
 
-We don't have a lot of data for our problem (150 pictures of each sort of bear at most), so to train our model, we'll use RandomResizedCrop with an image size of 224 px, which is fairly standard for image classification, and default aug_transforms:
+**Data Augmentation:** 
+We don't have a lot of data for our problem (150 pictures of each sort of bear at most), so to train our model, we'll use `RandomResizedCrop` with an image size of 224 px, which is fairly standard for image classification, and default aug_transforms:
 
     ```python
     bears = bears.new(
@@ -157,9 +168,10 @@ To do inference with an estimated/fitted model, pass the filename to `predict`:
 
 #### Observations
 - Cleaning the data and getting it ready for your model are two of the biggest challenges for data scientists; they say it takes 90% of their time. The fastai library aims to provide tools that make it as easy as possible.
-- Insight: best to do data cleaning after initial training
+- Insight: best to do data cleaning after initial training ("before you clean the data, train the model")
 - No Need for Big Data: After cleaning the dataset using these steps, we generally are seeing 100% accuracy on this task.
     - the common complaint that you need massive amounts of data to do deep learning can be a very long way from the truth!
+    - if you do need more data, can do Data Augmentation (synthetic data), e.g. with `RandomResizedCrop`
 
 ## Saving the Model and Using the Model for Inference
 
@@ -188,6 +200,7 @@ To do inference with an estimated/fitted model, pass the filename to `predict`:
 - **Local Development** To setup, develop and execute such models locally (rather than online), one must install and set up a working version of Python and all necessary libraries for fastai and jupyter notebooks
     - see [`fastai/fastsetup` repository](https://github.com/fastai/fastsetup) for one way of doing this 
         - (Q: will this install separately and cleanly from all exising python/anaconda installations?)
+        - These instructions seem to be oriented to Ubuntu OS
     - fastai/fastsetup recommends using the `mamba` package management tool, as sort of a faster-but-compatible `conda`
 
 - For a summary of steps demonstrated in Lesson 2, see the diagram at [Lesson 2: Practical Deep Learning for Coders 2022 - time 1:00:50](https://youtu.be/F4tvM4Vb3A0?t=3650)
@@ -204,6 +217,14 @@ To do inference with an estimated/fitted model, pass the filename to `predict`:
 
 [Lesson 3: Neural net foundations](https://course.fast.ai/Lessons/lesson3.html)
 ---------------------------------------------------------------------------------
+- Biggest #1 mistake of beginners is to jump quickly to bigger model architectures
+- Howard likes to start with simple model architecture, learn and improve the data
+    - "At the start of a new project I pretty much only use Resnet18
+    - sopend time trying things
+    - consider data augmentation (e.g. for images, try `RandomResizedCrop`)
+    - try cleaning the data
+    - try different external data that can be brought in
+- Generally, trying different (more elaborate) architectures is the _last_ thing I do
 
 [Lesson 4: Natural Language (NLP)](https://course.fast.ai/Lessons/lesson4.html)
 --------------------------------------------------------------------------------
